@@ -44,8 +44,8 @@ export class World {
     tick()
   }
 
-  addMesh(mesh) {
-    this.scene.scene.add(mesh)
+  addMesh(...mesh) {
+    this.scene.scene.add(...mesh)
   }
 
   updateCameraPositon(position) {
