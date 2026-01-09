@@ -4,5 +4,5 @@ services:
   frontend:
     build: .
     ports:
-      - "8080:80"
+      - "80:80"
     container_name: vue-frontend
