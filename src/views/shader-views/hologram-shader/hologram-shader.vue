@@ -73,7 +73,7 @@ onMounted(() => {
   // Debug
   const gui = new GUI({ container: document.querySelector('.hologram-shader') })
   gui.addColor(colorParameter, 'color').onChange(() => {
-    material.uniforms.uColor.set(colorParameter.color)
+    material.uniforms.uColor.value.set(colorParameter.color)
   })
 
   world = new World('.hologram-shader-canvas', {})
