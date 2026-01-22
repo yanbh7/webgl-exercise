@@ -184,6 +184,7 @@ window.addEventListener('click', createFireworkFn)
 
 onBeforeUnmount(() => {
   world.dispose()
+  window.removeEventListener('click', createFireworkFn)
 })
 </script>
 
