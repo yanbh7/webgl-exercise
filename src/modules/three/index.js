@@ -48,6 +48,10 @@ export class World {
     this.scene.scene.add(...mesh)
   }
 
+  removeMesh(...mesh) {
+    this.scene.scene.remove(...mesh)
+  }
+
   updateCameraPositon(position) {
     this.camera.updateCameraPosition(position)
   }

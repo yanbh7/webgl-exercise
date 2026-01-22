@@ -4,4 +4,5 @@ export default {
   animatedGalaxy: { module: "animated-galaxy", compName: "AnimatedGalaxy" },
   coffeeSmoke: { module: "coffee-smoke", compName: "CoffeeSmoke" },
   hologramShader: { module: "hologram-shader", compName: "HologramShader" },
+  fireworks: { module: "fireworks", compName: "FireworksShader" },
 }

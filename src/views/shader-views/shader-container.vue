@@ -48,5 +48,6 @@ onBeforeMount(async () => {
 .shader-container {
   display: flex;
   flex: 1;
+  padding-bottom: 10px;
 }
 </style>
