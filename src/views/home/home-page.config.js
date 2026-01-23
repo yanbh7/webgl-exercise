@@ -5,4 +5,5 @@ export default {
   coffeeSmoke: { module: "coffee-smoke", compName: "CoffeeSmoke" },
   hologramShader: { module: "hologram-shader", compName: "HologramShader" },
   fireworks: { module: "fireworks", compName: "FireworksShader" },
+  lightShading: { module: "light-shading", compName: "LightShading" },
 }

@@ -6,6 +6,7 @@ export class Size {
     this.height = 100
     this.width = 100
     this.resolution = new Vector2(this.width, this.height)
+    this.pixelRatio = Math.min(window.devicePixelRatio, 2)
     this.resizeEvent()
   }
 
@@ -18,6 +19,7 @@ export class Size {
       this.height = height
       this.width = width
       this.resolution = new Vector2(this.width, this.height)
+      this.pixelRatio = Math.min(window.devicePixelRatio, 2)
 
       this.world.renderer?.updatePixelRate?.()
       this.world.camera?.updateCamera?.()

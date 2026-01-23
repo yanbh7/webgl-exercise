@@ -89,9 +89,9 @@ const createFirework = (count, position, size, textureIndex, radius, color) => {
   firework.position.copy(position)
 
   const destroy = () => {
-    world?.removeMesh(firework)
     material.dispose()
     geometry.dispose()
+    world?.removeMesh?.(firework)
   }
 
   // Aniamte
