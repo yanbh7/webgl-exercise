@@ -7,14 +7,14 @@
 <script setup>
 import { onBeforeUnmount, onMounted } from 'vue'
 import GUI from 'lil-gui'
-import { ShaderMaterial, PlaneGeometry, Mesh, Vector2, Color } from 'three'
+import { ShaderMaterial, PlaneGeometry, Mesh, Vector2, Color, ACESFilmicToneMapping } from 'three'
 import { World } from '@/modules/three'
 import fragmentShader from './shader/fragment.glsl?raw'
 import vertexShader from './shader/vertex.glsl?raw'
 
 const debugObj = {
-  depthColor: '#186691',
-  surfaceColor: '#9bd8ff',
+  depthColor: '#ff4000',
+  surfaceColor: '#151c37',
 }
 const water = new Mesh(
   new PlaneGeometry(2, 2, 128, 128),
@@ -34,8 +34,8 @@ const water = new Mesh(
 
       uDepthColor: { value: new Color(debugObj.depthColor) },
       uSurfaceColor: { value: new Color(debugObj.surfaceColor) },
-      uColorOffset: { value: 0.08 },
-      uColorMultiplier: { value: 5 },
+      uColorOffset: { value: 0.925 },
+      uColorMultiplier: { value: 1 },
     },
   }),
 )
@@ -111,7 +111,10 @@ onMounted(() => {
     .name('uSmallWavesIterations')
 
   world = new World('.raging-sea-canvas', {})
+  // const axesHelper = new AxesHelper()
   world.addMesh(water)
+
+  world.renderer.updateToneMapping(ACESFilmicToneMapping)
   world.run((elTime) => {
     water.material.uniforms.uTime.value = elTime
   })

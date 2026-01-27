@@ -19,6 +19,9 @@ export class Render {
     const { scene } = this.world.scene
     this.renderer.render(scene, camera)
   }
+  updateToneMapping(mappingType) {
+    this.renderer.toneMapping = mappingType
+  }
   dispose() {
     this.renderer = null
     this.world = null

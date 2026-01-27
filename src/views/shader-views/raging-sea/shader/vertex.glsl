@@ -8,6 +8,10 @@ uniform float uSmallWavesSpeed;
 uniform float uSmallWavesIterations;
 
 varying float vElevation;
+varying vec3 vNormal;
+varying vec3 vPosition;
+
+
 
 // Classic Perlin 3D Noise 
 // by Stefan Gustavson
@@ -93,20 +97,39 @@ float cnoise(vec3 P)
     float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x); 
     return 2.2 * n_xyz;
 }
-void main() {
-  vec4 modelPosition = modelMatrix * vec4(position,1.0);
-  float elevation = sin(modelPosition.x * uBigWavesFrenquency.x + uTime * uBigWavesSpeed) *
-                    sin(modelPosition.z * uBigWavesFrenquency.y + uTime * uBigWavesSpeed) *
+
+float waveElevation(vec3 position) {
+	float elevation = sin(position.x * uBigWavesFrenquency.x + uTime * uBigWavesSpeed) *
+                    sin(position.z * uBigWavesFrenquency.y + uTime * uBigWavesSpeed) *
                     uBigWavesElevation;
   for(float i=1.0;i<=uSmallWavesIterations;i++){
-    elevation -= abs(cnoise(vec3(modelPosition.xz*uSmallWavesFrenquency*i,uTime*uSmallWavesSpeed))* uSmallWavesElevation/i);
+    elevation -= abs(cnoise(vec3(position.xz*uSmallWavesFrenquency*i,uTime*uSmallWavesSpeed))* uSmallWavesElevation/i);
   }
 
+	return elevation;
+}
+void main() {
+	float shift = 0.01;
+  vec4 modelPosition = modelMatrix * vec4(position,1.0);
+	vec3 modelPositionA = modelPosition.xyz + vec3(shift,0.0,0.0);
+	vec3 modelPositionB = modelPosition.xyz + vec3(0.0,0.0,-shift);
+
+  float elevation = waveElevation(modelPosition.xyz);
   modelPosition.y += elevation;
+	modelPositionA.y += waveElevation(modelPositionA);
+	modelPositionB.y += waveElevation(modelPositionB);
+
+	vec3 toA = normalize(modelPositionA - modelPosition.xyz);
+	vec3 toB = normalize(modelPositionB - modelPosition.xyz);
+
+	vec3 computedNormal = cross(toA,toB);
+
 
   vec4 viewPosition = viewMatrix * modelPosition;
   vec4 projectionPosition = projectionMatrix * viewPosition;
 
   gl_Position = projectionPosition;
   vElevation = elevation;
+	vNormal = computedNormal;
+	vPosition = modelPosition.xyz;
 }
