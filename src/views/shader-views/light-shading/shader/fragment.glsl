@@ -2,42 +2,10 @@ uniform vec3 uColor;
 varying vec3 vNormal;
 varying vec3 vPosition;
 
-vec3 ambientLight(vec3 lightColor,float lightIntensity) {
-  return lightColor * lightIntensity;
-}
+#include /src/common/glsl/ambientLight.glsl
+#include /src/common/glsl/directionLight.glsl
+#include /src/common/glsl/pointLight.glsl
 
-vec3 directionLight(vec3 lightColor,float lightIntensity,vec3 normal, vec3 lightPosition,vec3 viewDirection,float specularPower) {
-  vec3 lightDirection = normalize(lightPosition);
-  vec3 lightReflection = reflect(- lightDirection,normal);
-
-  float shading = dot(normal,lightPosition);
-  shading = max(0.0,shading);
-
-  float specular = -dot(lightReflection, viewDirection);
-  specular = max(0.0,specular);
-  specular = pow(specular,specularPower);
-  // return vec3(specular);
-  return lightColor * lightIntensity * (shading + specular);
-}
-
-vec3 pointLight(vec3 lightColor,float lightIntensity,vec3 normal, vec3 lightPosition,vec3 viewDirection,float specularPower,vec3 position) {
-  vec3 lightDelta = lightPosition - position;
-  float lightDistance = length(lightDelta);
-  vec3 lightDirection = normalize(lightDelta);
-  vec3 lightReflection = reflect(- lightDirection,normal);
-
-  float shading = dot(normal,lightPosition);
-  shading = max(0.0,shading);
-
-  float specular = -dot(lightReflection, viewDirection);
-  specular = max(0.0,specular);
-  specular = pow(specular,specularPower);
-  // decay
-  float decay = 1.0 - lightDistance * 0.3;
-  decay = max(0.,decay);
-  // return vec3(specular);
-  return lightColor * lightIntensity * decay * (shading + specular);
-}
 void main()
 {
     vec3 normal = normalize(vNormal);

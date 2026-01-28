@@ -10,8 +10,8 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { onMounted } from 'vue'
 import { World } from '@/modules/three'
-import vertexShader from './shader/vertexShader.glsl?raw'
-import fragmentShader from './shader/fragmentShader.glsl?raw'
+import vertexShader from './shader/vertexShader.glsl'
+import fragmentShader from './shader/fragmentShader.glsl'
 
 // Loaders
 const textureLoader = new THREE.TextureLoader()

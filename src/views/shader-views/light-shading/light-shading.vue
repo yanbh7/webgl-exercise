@@ -10,8 +10,8 @@ import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { World } from '@/modules/three'
-import fragmentShader from './shader/fragment.glsl?raw'
-import vertexShader from './shader/vertex.glsl?raw'
+import fragmentShader from './shader/fragment.glsl'
+import vertexShader from './shader/vertex.glsl'
 
 let world = null
 

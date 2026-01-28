@@ -6,4 +6,6 @@ export default {
   hologramShader: { module: "hologram-shader", compName: "HologramShader" },
   fireworks: { module: "fireworks", compName: "FireworksShader" },
   lightShading: { module: "light-shading", compName: "LightShading" },
+  halftoneShading: { module: "halftone-shading", compName: "HalftoneShading" },
+  earthShader: { module: "earth-shader", compName: "EarthShader" },
 }

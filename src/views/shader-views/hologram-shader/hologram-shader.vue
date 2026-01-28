@@ -11,8 +11,8 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 import { World } from '@/modules/three'
-import fragmentShader from './shader/fragmentShader.glsl?raw'
-import vertexShader from './shader/vertexShader.glsl?raw'
+import fragmentShader from './shader/fragmentShader.glsl'
+import vertexShader from './shader/vertexShader.glsl'
 
 // Loaders
 const gltfLoader = new GLTFLoader()

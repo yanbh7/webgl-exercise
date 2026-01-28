@@ -9,8 +9,8 @@ import { onBeforeUnmount, onMounted } from 'vue'
 import GUI from 'lil-gui'
 import { ShaderMaterial, PlaneGeometry, Mesh, Vector2, Color, ACESFilmicToneMapping } from 'three'
 import { World } from '@/modules/three'
-import fragmentShader from './shader/fragment.glsl?raw'
-import vertexShader from './shader/vertex.glsl?raw'
+import fragmentShader from './shader/fragment.glsl'
+import vertexShader from './shader/vertex.glsl'
 
 const debugObj = {
   depthColor: '#ff4000',

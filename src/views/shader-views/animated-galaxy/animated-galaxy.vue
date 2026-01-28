@@ -9,8 +9,8 @@ import { onMounted } from 'vue'
 import * as THREE from 'three'
 import GUI from 'lil-gui'
 import { World } from '@/modules/three'
-import vertexShader from './shader/vertexShader.glsl?raw'
-import fragmentShader from './shader/fragmentShader.glsl?raw'
+import vertexShader from './shader/vertexShader.glsl'
+import fragmentShader from './shader/fragmentShader.glsl'
 /**
  * Galaxy
  */

@@ -13,8 +13,8 @@ import { Sky } from 'three/examples/jsm/objects/Sky'
 // import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 import { World } from '@/modules/three'
-import fragmentShader from './shader/fragment.glsl?raw'
-import vertexShader from './shader/vertex.glsl?raw'
+import fragmentShader from './shader/fragment.glsl'
+import vertexShader from './shader/vertex.glsl'
 
 let world = null
 
