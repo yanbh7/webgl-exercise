@@ -20,6 +20,13 @@ import { RouterLink, RouterView } from 'vue-router'
 <style scoped>
 header {
   line-height: 1.5;
-  height: 80px;
+  height: 55px;
+}
+h1 {
+  margin-right: 20px;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
 }
 </style>

@@ -1,14 +1,22 @@
 <template>
-  <div class="main-card w-100"></div>
+  <div class="main-card w-100">
+    <img :src="imgAttrs.imgSrc" alt="" />
+    <div class="desc-wrap">
+      {{ imgAttrs.desc }}
+    </div>
+  </div>
 </template>
 
 <script>
-import { toRefs } from 'vue'
-
 export default {
   name: 'MainCard',
 
-  props: {},
+  props: {
+    imgAttrs: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
 
   setup(props, ctx) {
     return {}
@@ -18,9 +26,30 @@ export default {
 
 <style lang="less" scoped>
 .main-card {
-  height: 100px;
-  flex: 1;
+  @width: calc((94vw - 60px) / 4);
+  position: relative;
+  margin-right: 1vw;
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
+  margin-bottom: 1vw;
+  height: 180px;
+  width: @width;
   border-radius: 4px;
-  border: 1px solid red;
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+  .desc-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #cccccc66;
+  }
 }
 </style>

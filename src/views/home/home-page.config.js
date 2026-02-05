@@ -1,11 +1,57 @@
 
 export default {
-  ragingSea: { module: "raging-sea", compName: "RagingSea" },
-  animatedGalaxy: { module: "animated-galaxy", compName: "AnimatedGalaxy" },
-  coffeeSmoke: { module: "coffee-smoke", compName: "CoffeeSmoke" },
-  hologramShader: { module: "hologram-shader", compName: "HologramShader" },
-  fireworks: { module: "fireworks", compName: "FireworksShader" },
-  lightShading: { module: "light-shading", compName: "LightShading" },
-  halftoneShading: { module: "halftone-shading", compName: "HalftoneShading" },
-  earthShader: { module: "earth-shader", compName: "EarthShader" },
+  ragingSea: {
+    module: "raging-sea",
+    compName: "RagingSea",
+    imgSrc: "./images/raging-sea.png",
+    desc: "ReagingSea Shading"
+  },
+  animatedGalaxy: {
+    module: "animated-galaxy",
+    compName: "AnimatedGalaxy",
+    imgSrc: "./images/animate-galaxy.png",
+    desc: "Animated Galaxy"
+  },
+  coffeeSmoke: {
+    module: "coffee-smoke",
+    compName: "CoffeeSmoke",
+    imgSrc: "./images/coffee-smoke.png",
+    desc: "Coffee Smoke"
+  },
+  hologramShader: {
+    module: "hologram-shader",
+    compName: "HologramShader",
+    imgSrc: "./images/hologram-shader.png",
+    desc: "Hologram Shader"
+  },
+  fireworks: {
+    module: "fireworks",
+    compName: "FireworksShader",
+    imgSrc: "./images/firework.png",
+    desc: "Fireworks Shader"
+  },
+  lightShading: {
+    module: "light-shading",
+    compName: "LightShading",
+    imgSrc: "./images/lighting-shader.png",
+    desc: "Light Shading"
+  },
+  halftoneShading: {
+    module: "halftone-shading",
+    compName: "HalftoneShading",
+    imgSrc: "./images/halftone.png",
+    desc: "Halftone Shading"
+  },
+  earthShader: {
+    module: "earth-shader",
+    compName: "EarthShader",
+    imgSrc: "./images/earth-shader.png",
+    desc: "Earth Shader"
+  },
+  particlesCursorAnimation: {
+    module: "particles-cursor-animation",
+    compName: "ParticlesCursorAnimation",
+    imgSrc: "./images/particle-cursor-animation.png",
+    desc: "Particles Cursor Animation"
+  },
 }

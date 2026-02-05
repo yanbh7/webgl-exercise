@@ -7,14 +7,15 @@ const pages = Object.values(pageConfig)
 const reoter = useRouter()
 
 const onClick = async (page) => {
-  reoter.push({ name: 'shader-exercise', query: page })
+  const { module, compName } = page
+  reoter.push({ name: 'shader-exercise', query: { module, compName } })
 }
 </script>
 
 <template>
   <main class="main">
     <template v-for="page in pages" :key="page.compName">
-      <MainCardVue @click="onClick(page)" />
+      <MainCardVue :imgAttrs="page" @click="onClick(page)" />
     </template>
   </main>
 </template>
