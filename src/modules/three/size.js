@@ -20,11 +20,18 @@ export class Size {
       this.width = width
       this.resolution = new Vector2(this.width, this.height)
       this.pixelRatio = Math.min(window.devicePixelRatio, 2)
-
+      this.resizeCallback()
       this.world.renderer?.updatePixelRate?.()
       this.world.camera?.updateCamera?.()
     })
     this.ob.observe(this.dom.parentElement)
+  }
+
+  setResizeCallback(func) {
+    this.resizeCallback.value = func;
+  }
+  resizeCallback() {
+    this.resizeCallback.value?.()
   }
   dispose() {
     this.ob.unobserve(this.dom.parentElement)

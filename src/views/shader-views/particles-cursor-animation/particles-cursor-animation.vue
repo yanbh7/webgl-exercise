@@ -119,6 +119,13 @@ onMounted(() => {
   })
   const particles = new THREE.Points(particlesGeometry, particlesMaterial)
   world.addMesh(particles)
+
+  world.size.setResizeCallback(() => {
+    particlesMaterial.uniforms.uResolution.value.set(
+      world.size.width * world.size.pixelRatio,
+      world.size.height * world.size.pixelRatio,
+    )
+  })
   debuggerObj.changeTexture = () => {
     particlesMaterial.uniforms.uPictureTexture.value = textures[++textureIndex % 4]
   }

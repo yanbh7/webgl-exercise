@@ -54,4 +54,10 @@ export default {
     imgSrc: "./images/particle-cursor-animation.png",
     desc: "Particles Cursor Animation"
   },
+  particlesMorphAnimation: {
+    module: "particles-morph-animation",
+    compName: "particlesMorphAnimation",
+    imgSrc: "./images/particle-morph-animation.png",
+    desc: "Particles Morph Animation"
+  },
 }

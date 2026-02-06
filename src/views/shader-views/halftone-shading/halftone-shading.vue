@@ -71,6 +71,13 @@ onMounted(() => {
     // blending: THREE.AdditiveBlending,
   })
 
+  world.size.setResizeCallback(() => {
+    material.uniforms.uResolution.value.set(
+      world.size.width * world.size.pixelRatio,
+      world.size.height * world.size.pixelRatio,
+    )
+  })
+
   gui.add(material.uniforms.uShaderRepeat, 'value').min(10).max(200).step(1).name('shaderRepeat')
   gui.add(material.uniforms.uLightRepeat, 'value').min(10).max(200).step(1).name('lightRepeat')
 
