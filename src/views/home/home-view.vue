@@ -22,12 +22,11 @@ const onClick = async (page) => {
 
 <style lang="less" scoped>
 .main {
+  flex: 1;
   display: flex;
   justify-content: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
   align-items: center;
-  height: calc(100% - 55px);
-  overflow-y: auto;
 }
 </style>
