@@ -153,7 +153,7 @@ onMounted(() => {
     ctx2d.globalAlpha = 0.02
     ctx2d.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-    ctx2d.globalCompositeOperation = 'lighten'
+    ctx2d.globalCompositeOperation = 'lighter'
     const glowSize = CANVAS_WIDTH / 4
     ctx2d.globalAlpha = alpha
 

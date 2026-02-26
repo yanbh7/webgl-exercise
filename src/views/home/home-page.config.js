@@ -60,4 +60,10 @@ export default {
     imgSrc: "./images/particle-morph-animation.png",
     desc: "Particles Morph Animation"
   },
+  gpgpuFlowField: {
+    module: "gpgpu-flow-field",
+    compName: "GpgpuFlowField",
+    imgSrc: "./images/particle-morph-animation.png",
+    desc: "GPGPU Flow Field Particles"
+  },
 }
