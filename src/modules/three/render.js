@@ -3,7 +3,8 @@ export class Render {
   constructor(world) {
     this.world = world
     this.renderer = new WebGLRenderer({
-      canvas: world.size.dom
+      canvas: world.size.dom,
+      antialias: true
     })
     this.updatePixelRate()
   }

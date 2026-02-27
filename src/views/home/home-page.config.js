@@ -1,4 +1,3 @@
-
 export default {
   ragingSea: {
     module: "raging-sea",
@@ -65,5 +64,11 @@ export default {
     compName: "GpgpuFlowField",
     imgSrc: "./images/gpgpu-flow-field.png",
     desc: "GPGPU Flow Field Particles"
+  },
+  proceduralTerrain: {
+    module: "procedural-terrain",
+    compName: "ProceduralTerrain",
+    imgSrc: "./images/procedural-terrain.png",
+    desc: "Procedural Terrain Shader"
   },
 }
