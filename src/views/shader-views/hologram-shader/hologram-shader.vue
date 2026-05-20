@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 import GUI from "lil-gui";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -52,26 +52,31 @@ torusKnot.position.x = 3;
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(), material);
 sphere.position.x = -3;
 
-const isLoaded = ref(false);
 // Suzanne
 let suzanne = null;
+let world = null;
+let gui = null;
+let isDisposed = false;
+
 gltfLoader.load("./model/hologram-shader/suzanne.glb", (gltf) => {
+  if (isDisposed) {
+    gltf.scene.traverse((child) => {
+      child.geometry?.dispose?.();
+      child.material?.dispose?.();
+    });
+    return;
+  }
+
   suzanne = gltf.scene;
   suzanne.traverse((child) => {
     if (child.isMesh) child.material = material;
   });
-  isLoaded.value = true;
-});
-let world = null;
-watch(isLoaded, (val) => {
-  if (val) {
-    world.addMesh(suzanne);
-  }
+  world?.addMesh(suzanne);
 });
 
 onMounted(() => {
   // Debug
-  const gui = new GUI({ container: document.querySelector(".hologram-shader") });
+  gui = new GUI({ container: document.querySelector(".hologram-shader") });
   gui.addColor(colorParameter, "color").onChange(() => {
     material.uniforms.uColor.value.set(colorParameter.color);
   });
@@ -86,6 +91,9 @@ onMounted(() => {
   world.camera.updateCameraPosition({ x: 7, y: 7, z: 7 });
   world.camera.updateCameraFov(25);
   world.addMesh(torusKnot, sphere);
+  if (suzanne) {
+    world.addMesh(suzanne);
+  }
 
   world.run((elTime) => {
     material.uniforms.uTime.value = elTime;
@@ -106,7 +114,9 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  world.dispose();
+  isDisposed = true;
+  gui?.destroy();
+  world?.dispose();
 });
 </script>
 

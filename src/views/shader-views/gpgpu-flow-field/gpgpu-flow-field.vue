@@ -29,6 +29,7 @@ const loadModel = async () => {
 
 let world = null;
 let gui = null;
+let isDisposed = false;
 const wrapRef = ref(null);
 const particles = {};
 const debugObject = {
@@ -90,6 +91,14 @@ onBeforeMount(async () => {});
 onMounted(async () => {
   gui = new GUI({ container: wrapRef.value });
   const gltf = await loadModel();
+  if (isDisposed) {
+    gltf.scene.traverse((child) => {
+      child.geometry?.dispose?.();
+      child.material?.dispose?.();
+    });
+    return;
+  }
+
   loadedUpdate(gltf);
   world = new World(".gpgpu-flow-field-canvas", {});
   world.camera.updateCameraPosition({ x: 6, y: 6, z: 18 });
@@ -193,6 +202,10 @@ onMounted(async () => {
   });
 });
 onBeforeUnmount(() => {
-  world.dispose();
+  isDisposed = true;
+  gui?.destroy();
+  gpgpu.computation?.dispose?.();
+  dracoLoader.dispose();
+  world?.dispose();
 });
 </script>

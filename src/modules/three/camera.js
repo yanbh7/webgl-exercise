@@ -16,6 +16,9 @@ export class Camera {
   }
   updateCamera() {
     const { size } = this.world;
+    if (!this.camera || !size) {
+      return;
+    }
 
     this.camera.aspect = size.width / size.height;
     this.camera.updateProjectionMatrix();
@@ -30,11 +33,14 @@ export class Camera {
 
   updateCameraFov(fov) {
     this.camera.fov = fov;
+    this.camera.updateProjectionMatrix();
   }
   update() {
-    this.control.update();
+    this.control?.update();
   }
   dispose() {
+    this.control?.dispose();
+    this.control = null;
     this.camera = null;
     this.world = null;
   }

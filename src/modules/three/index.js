@@ -1,4 +1,4 @@
-import { Clock, ShaderMaterial, PlaneGeometry, Mesh } from "three";
+import { Clock } from "three";
 import { Camera } from "./camera";
 import { Render } from "./render";
 import { Tscene as Scene } from "./scene";
@@ -9,7 +9,8 @@ export class World {
   constructor(container, options = {}) {
     this.container = container;
     this.options = options;
-    this.handleOptions();
+    this.rafId = null;
+    this.disposed = false;
 
     this.size = new Size(this);
     this.scene = new Scene(this);
@@ -21,47 +22,69 @@ export class World {
 
   static use(...args) {
     if (!World.instance) {
-      return new World(args);
+      World.instance = new World(...args);
     }
     return World.instance;
   }
   run(callback) {
     const tick = () => {
+      if (this.disposed) {
+        return;
+      }
+
       // Update controls
       const elTime = this.time.getElapsedTime();
 
       callback?.(elTime, this);
 
-      this.camera.update();
+      this.camera?.update();
 
       // Render
-      this.renderer.update();
+      this.renderer?.update();
 
       // Call tick again on the next frame
-      window.requestAnimationFrame(tick);
+      this.rafId = window.requestAnimationFrame(tick);
     };
     tick();
   }
 
   addMesh(...mesh) {
-    this.scene.scene.add(...mesh);
+    this.scene?.scene?.add(...mesh);
   }
 
   removeMesh(...mesh) {
-    this.scene.scene.remove(...mesh);
+    this.scene?.scene?.remove(...mesh);
   }
 
   updateCameraPositon(position) {
     this.camera.updateCameraPosition(position);
   }
 
-  handleOptions() {
-    this.options;
-  }
   dispose() {
-    this.size.dispose();
-    this.scene.dispose();
-    this.camera.dispose();
-    this.renderer.dispose();
+    if (this.disposed) {
+      return;
+    }
+
+    this.disposed = true;
+
+    if (this.rafId !== null) {
+      window.cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+
+    this.size?.dispose();
+    this.camera?.dispose();
+    this.scene?.dispose();
+    this.renderer?.dispose();
+
+    this.size = null;
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.time = null;
+
+    if (World.instance === this) {
+      World.instance = null;
+    }
   }
 }

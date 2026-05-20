@@ -17,6 +17,9 @@ import fragmentShader from "./shader/fragment.glsl";
 import vertexShader from "./shader/vertex.glsl";
 
 let world = null;
+let gui = null;
+let sky = null;
+const fireworkTweens = new Set();
 
 /**
  * texture loader
@@ -96,17 +99,23 @@ const createFirework = (count, position, size, textureIndex, radius, color) => {
 
   // Aniamte
   gsap.to(material.uniforms.uProgress, {
+    onStart() {
+      fireworkTweens.add(this);
+    },
     value: 1,
     duration: 3,
     ease: "linear",
-    onComplete: destroy,
+    onComplete() {
+      fireworkTweens.delete(this);
+      destroy();
+    },
   });
   return firework;
 };
 
 onMounted(() => {
   // Debug
-  const gui = new GUI({ container: document.querySelector(".fireworks-shader") });
+  gui = new GUI({ container: document.querySelector(".fireworks-shader") });
 
   world = new World(".fireworks-shader-canvas", {});
 
@@ -115,7 +124,7 @@ onMounted(() => {
 
   // Sky
   // Add Sky
-  const sky = new Sky();
+  sky = new Sky();
   sky.scale.setScalar(450000);
   world.addMesh(sky);
 
@@ -165,6 +174,10 @@ onMounted(() => {
 });
 
 const createFireworkFn = () => {
+  if (!world) {
+    return;
+  }
+
   const count = Math.round(400 + Math.random() * 1000);
   const position = new THREE.Vector3((Math.random() - 0.5) * 2, Math.random(), (Math.random() - 0.5) * 2);
 
@@ -179,7 +192,12 @@ const createFireworkFn = () => {
 window.addEventListener("click", createFireworkFn);
 
 onBeforeUnmount(() => {
-  world.dispose();
+  fireworkTweens.forEach((tween) => tween.kill());
+  fireworkTweens.clear();
+  textures.forEach((texture) => texture.dispose());
+  gui?.destroy();
+  world?.dispose();
+  sky = null;
   window.removeEventListener("click", createFireworkFn);
 });
 </script>

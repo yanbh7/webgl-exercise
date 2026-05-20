@@ -41,10 +41,11 @@ const water = new Mesh(
 );
 water.rotation.x = -Math.PI * 0.5;
 let world = null;
+let gui = null;
 
 onMounted(() => {
   // Debug
-  const gui = new GUI({ container: document.querySelector(".raging-sea") });
+  gui = new GUI({ container: document.querySelector(".raging-sea") });
 
   gui.add(water.material.uniforms.uBigWavesElevation, "value").min(0).max(1).step(0.001).name("海拔");
   gui.add(water.material.uniforms.uBigWavesFrenquency.value, "x").min(0).max(10).step(0.001).name("x轴频率");
@@ -81,7 +82,8 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  world.dispose();
+  gui?.destroy();
+  world?.dispose();
 });
 </script>
 

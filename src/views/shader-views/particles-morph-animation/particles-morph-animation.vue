@@ -27,7 +27,18 @@ dracoLoader.setDecoderPath("./draco/");
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
 
-gltfLoader.load("./model/particles-morph/models.glb", (gltf) => {
+let isDisposed = false;
+
+const loadParticles = () => {
+  gltfLoader.load("./model/particles-morph/models.glb", (gltf) => {
+    if (isDisposed || !world) {
+      gltf.scene.traverse((child) => {
+        child.geometry?.dispose?.();
+        child.material?.dispose?.();
+      });
+      return;
+    }
+
   /**
    * Positions
    */
@@ -126,7 +137,8 @@ gltfLoader.load("./model/particles-morph/models.glb", (gltf) => {
   gui.add(particles, "morph1");
   gui.add(particles, "morph2");
   gui.add(particles, "morph3");
-});
+  });
+};
 
 const debugObject = {};
 
@@ -141,6 +153,8 @@ onMounted(() => {
   world = new World(".particles-morph-animation-canvas", {});
   world.camera.updateCameraPosition({ x: 0, y: 0, z: 18 });
   world.camera.updateCameraFov(35);
+  loadParticles();
+
   gui.addColor(debugObject, "clearColor").onChange(() => {
     world.renderer.renderer.setClearColor(debugObject.clearColor);
   });
@@ -159,6 +173,10 @@ onMounted(() => {
   world.run(() => {});
 });
 onBeforeUnmount(() => {
-  world.dispose();
+  isDisposed = true;
+  gsap.killTweensOf(particles.material?.uniforms.uProgress);
+  gui?.destroy();
+  world?.dispose();
+  dracoLoader.dispose();
 });
 </script>

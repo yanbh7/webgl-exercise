@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 import * as THREE from "three";
 import GUI from "lil-gui";
 import { World } from "@/modules/three";
@@ -28,6 +28,8 @@ parameters.outsideColor = "#1b3984";
 let geometry = null;
 let material = null;
 let points = null;
+let world = null;
+let gui = null;
 
 const generateGalaxy = (world) => {
   const { scene, renderer } = world;
@@ -122,9 +124,9 @@ const generateGalaxy = (world) => {
 
 onMounted(() => {
   // Debug
-  const gui = new GUI({ container: document.querySelector(".animated-galaxy") });
+  gui = new GUI({ container: document.querySelector(".animated-galaxy") });
 
-  const world = new World(".animated-galaxy-canvas");
+  world = new World(".animated-galaxy-canvas");
 
   const generateGalaxy2 = () => generateGalaxy(world);
   generateGalaxy2();
@@ -139,6 +141,14 @@ onMounted(() => {
   gui.add(parameters, "randomnessPower").min(1).max(10).step(0.001).onFinishChange(generateGalaxy2);
   gui.addColor(parameters, "insideColor").onFinishChange(generateGalaxy2);
   gui.addColor(parameters, "outsideColor").onFinishChange(generateGalaxy2);
+});
+
+onBeforeUnmount(() => {
+  gui?.destroy();
+  world?.dispose();
+  geometry = null;
+  material = null;
+  points = null;
 });
 </script>
 

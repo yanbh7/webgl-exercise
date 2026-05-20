@@ -8,7 +8,7 @@
 import GUI from "lil-gui";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { onMounted } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 import { World } from "@/modules/three";
 import vertexShader from "./shader/vertexShader.glsl";
 import fragmentShader from "./shader/fragmentShader.glsl";
@@ -43,18 +43,29 @@ const smokeMaterial = new THREE.ShaderMaterial({
 
 // Mesh
 const smoke = new THREE.Mesh(smokeGeometry, smokeMaterial);
+let world = null;
+let gui = null;
+let isDisposed = false;
 
 onMounted(() => {
   // Debug
-  const gui = new GUI({ container: document.querySelector(".coffee-smoke") });
+  gui = new GUI({ container: document.querySelector(".coffee-smoke") });
 
-  const world = new World(".coffee-smoke-canvas");
+  world = new World(".coffee-smoke-canvas");
   world.camera.updateCameraFov(25);
   world.camera.updateCameraPosition({ x: 8, y: 10, z: 12 });
   /**
    * Model
    */
   gltfLoader.load("./model/coffee-smoke/bakedModel.glb", (gltf) => {
+    if (isDisposed) {
+      gltf.scene.traverse((child) => {
+        child.geometry?.dispose?.();
+        child.material?.dispose?.();
+      });
+      return;
+    }
+
     gltf.scene.getObjectByName("baked").material.map.anisotropy = 8;
     world.addMesh(gltf.scene);
   });
@@ -64,6 +75,12 @@ onMounted(() => {
     // Update Smoke
     smoke.material.uniforms.uTime.value = time;
   });
+});
+
+onBeforeUnmount(() => {
+  isDisposed = true;
+  gui?.destroy();
+  world?.dispose();
 });
 </script>
 

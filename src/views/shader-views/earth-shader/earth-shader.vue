@@ -27,6 +27,7 @@ const earthSpecularTexture = textureLoader.load("./textures/earth/specularClouds
 earthSpecularTexture.anisotropy = 8;
 
 let world = null;
+let gui = null;
 
 /**
  * Earth
@@ -91,7 +92,7 @@ updateSun();
 
 onMounted(() => {
   // Debug
-  const gui = new GUI({ container: document.querySelector(".earth-shader"), width: 300 });
+  gui = new GUI({ container: document.querySelector(".earth-shader"), width: 300 });
   gui.addColor(earthParameter, "atmosphereDayColor").onChange(() => {
     earthMaterial.uniforms.uAtmosphereDayColor.value.set(earthParameter.atmosphereDayColor);
     atmosphereMaterial.uniforms.uAtmosphereDayColor.value.set(earthParameter.atmosphereDayColor);
@@ -115,6 +116,10 @@ onMounted(() => {
   // console.log('world.renderer.r:', world.renderer.renderer.capabilities.getMaxAnisotropy())
 });
 onBeforeUnmount(() => {
-  world.dispose();
+  gui?.destroy();
+  world?.dispose();
+  earthDayTexture.dispose();
+  earthNightTexture.dispose();
+  earthSpecularTexture.dispose();
 });
 </script>

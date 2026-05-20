@@ -4,11 +4,11 @@ import pageConfig from "./home-page.config.js";
 import { useRouter } from "vue-router";
 
 const pages = Object.values(pageConfig);
-const reoter = useRouter();
+const router = useRouter();
 
 const onClick = async (page) => {
   const { module, compName } = page;
-  reoter.push({ name: "shader-exercise", query: { module, compName } });
+  router.push({ name: "shader-exercise", query: { module, compName } });
 };
 </script>
 

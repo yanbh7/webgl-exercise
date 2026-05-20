@@ -21,6 +21,7 @@ const hdrLoader = new HDRLoader();
 
 let world = null;
 let gui = null;
+let isDisposed = false;
 const wrapRef = ref(null);
 
 onMounted(() => {
@@ -34,6 +35,11 @@ onMounted(() => {
    * Environment map
    */
   hdrLoader.load("./textures/procedural-terrain/spruit_sunrise.hdr", (environmentMap) => {
+    if (isDisposed || !world) {
+      environmentMap.dispose();
+      return;
+    }
+
     environmentMap.mapping = THREE.EquirectangularReflectionMapping;
 
     world.scene.scene.background = environmentMap;
@@ -201,6 +207,8 @@ onMounted(() => {
   });
 });
 onBeforeUnmount(() => {
-  world.dispose();
+  isDisposed = true;
+  gui?.destroy();
+  world?.dispose();
 });
 </script>

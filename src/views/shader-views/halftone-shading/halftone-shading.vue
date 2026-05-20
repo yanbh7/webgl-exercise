@@ -29,10 +29,12 @@ const colorParameter = {
 };
 
 let world = null;
+let gui = null;
+let isDisposed = false;
 
 onMounted(() => {
   // Debug
-  const gui = new GUI({ container: document.querySelector(".halftone-shading") });
+  gui = new GUI({ container: document.querySelector(".halftone-shading") });
   gui.addColor(colorParameter, "color").onChange(() => {
     material.uniforms.uColor.value.set(colorParameter.color);
   });
@@ -92,6 +94,14 @@ onMounted(() => {
   // Suzanne
   let suzanne = null;
   gltfLoader.load("./model/hologram-shader/suzanne.glb", (gltf) => {
+    if (isDisposed) {
+      gltf.scene.traverse((child) => {
+        child.geometry?.dispose?.();
+        child.material?.dispose?.();
+      });
+      return;
+    }
+
     suzanne = gltf.scene;
     suzanne.traverse((child) => {
       if (child.isMesh) child.material = material;
@@ -117,9 +127,10 @@ onMounted(() => {
     torusKnot.rotation.x = -elTime * 0.1;
     torusKnot.rotation.y = elTime * 0.2;
   });
-  window.world = world;
 });
 onBeforeUnmount(() => {
-  world.dispose();
+  isDisposed = true;
+  gui?.destroy();
+  world?.dispose();
 });
 </script>

@@ -29,6 +29,7 @@ const textures = [
   textureLoader.load("./textures/particle-animation/picture-4.png"),
 ];
 let world = null;
+let gui = null;
 const canvasRef = ref(null);
 const wrapRef = ref(null);
 
@@ -46,7 +47,7 @@ const ponitMoveFunc = (e) => {
 };
 
 onMounted(() => {
-  const gui = new GUI({ container: wrapRef.value });
+  gui = new GUI({ container: wrapRef.value });
   /**
    * 2d canvas
    */
@@ -158,8 +159,10 @@ onMounted(() => {
   });
 });
 onBeforeUnmount(() => {
-  world.dispose();
-  wrapRef.value.removeEventListener("pointermove", ponitMoveFunc);
+  gui?.destroy();
+  world?.dispose();
+  textures.forEach((texture) => texture.dispose());
+  wrapRef.value?.removeEventListener("pointermove", ponitMoveFunc);
 });
 </script>
 

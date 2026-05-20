@@ -25,25 +25,23 @@ export default {
   @width: calc((97vw - 60px) / 4);
   position: relative;
   margin-right: 1vw;
-  &:nth-child(4n) {
-    margin-right: 0;
-  }
   margin-bottom: 1vw;
   width: @width;
   border-radius: 4px;
   overflow: hidden;
-
-  /* 现代浏览器：使用 aspect-ratio */
   aspect-ratio: 300 / 180;
+  cursor: pointer;
 
-  /* 回退：使用伪元素创建内在比例（180 / 300 = 60%）*/
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
+
   &::before {
     content: "";
     display: block;
     padding-top: 60%;
   }
 
-  /* 如果支持 aspect-ratio，隐藏回退占位 */
   @supports (aspect-ratio: 1 / 1) {
     &::before {
       display: none;
@@ -57,6 +55,7 @@ export default {
     border-radius: 4px;
     object-fit: cover;
   }
+
   .desc-wrap {
     position: absolute;
     bottom: 0;
