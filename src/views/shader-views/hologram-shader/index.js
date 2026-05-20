@@ -1,1 +1,1 @@
-export { default } from './hologram-shader.vue'
+export { default } from "./hologram-shader.vue";

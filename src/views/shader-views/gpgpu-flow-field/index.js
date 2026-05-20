@@ -1,1 +1,1 @@
-export { default } from './gpgpu-flow-field.vue'
+export { default } from "./gpgpu-flow-field.vue";

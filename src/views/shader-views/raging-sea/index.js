@@ -1,1 +1,1 @@
-export { default } from './raging-sea.vue'
+export { default } from "./raging-sea.vue";

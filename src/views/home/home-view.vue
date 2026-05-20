@@ -1,15 +1,15 @@
 <script setup>
-import MainCardVue from './main-card.vue'
-import pageConfig from './home-page.config.js'
-import { useRouter } from 'vue-router'
+import MainCardVue from "./main-card.vue";
+import pageConfig from "./home-page.config.js";
+import { useRouter } from "vue-router";
 
-const pages = Object.values(pageConfig)
-const reoter = useRouter()
+const pages = Object.values(pageConfig);
+const reoter = useRouter();
 
 const onClick = async (page) => {
-  const { module, compName } = page
-  reoter.push({ name: 'shader-exercise', query: { module, compName } })
-}
+  const { module, compName } = page;
+  reoter.push({ name: "shader-exercise", query: { module, compName } });
+};
 </script>
 
 <template>

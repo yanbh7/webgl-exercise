@@ -1,1 +1,1 @@
-export { default } from './particles-morph-animation.vue'
+export { default } from "./particles-morph-animation.vue";

@@ -1,1 +1,1 @@
-export { default } from './fireworks-shader.vue'
+export { default } from "./fireworks-shader.vue";

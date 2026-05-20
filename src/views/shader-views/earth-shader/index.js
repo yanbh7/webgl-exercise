@@ -1,1 +1,1 @@
-export { default } from './earth-shader.vue'
+export { default } from "./earth-shader.vue";

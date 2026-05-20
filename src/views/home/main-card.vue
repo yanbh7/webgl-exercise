@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'MainCard',
+  name: "MainCard",
 
   props: {
     imgAttrs: {
@@ -17,7 +17,7 @@ export default {
       default: () => ({}),
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -38,7 +38,7 @@ export default {
 
   /* 回退：使用伪元素创建内在比例（180 / 300 = 60%）*/
   &::before {
-    content: '';
+    content: "";
     display: block;
     padding-top: 60%;
   }

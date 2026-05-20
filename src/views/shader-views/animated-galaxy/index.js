@@ -1,1 +1,1 @@
-export { default } from './animated-galaxy.vue'
+export { default } from "./animated-galaxy.vue";

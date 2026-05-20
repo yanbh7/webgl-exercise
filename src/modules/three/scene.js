@@ -1,12 +1,12 @@
-import { Scene } from 'three'
+import { Scene } from "three";
 
 export class Tscene {
   constructor(world) {
-    this.world = world
-    this.scene = new Scene()
+    this.world = world;
+    this.scene = new Scene();
   }
   dispose() {
-    this.scene = null
-    this.world = null
+    this.scene = null;
+    this.world = null;
   }
 }

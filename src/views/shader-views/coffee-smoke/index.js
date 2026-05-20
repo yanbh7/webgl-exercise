@@ -1,1 +1,1 @@
-export { default } from './coffee-smoke.vue'
+export { default } from "./coffee-smoke.vue";

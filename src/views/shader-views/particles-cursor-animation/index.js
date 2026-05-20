@@ -1,1 +1,1 @@
-export { default } from './particles-cursor-animation.vue'
+export { default } from "./particles-cursor-animation.vue";

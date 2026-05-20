@@ -1,1 +1,1 @@
-export { default } from './halftone-shading.vue'
+export { default } from "./halftone-shading.vue";
